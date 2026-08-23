@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>至臻全能帝国 v26.0 - 终极版</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --p: #00d2ff; --g: rgba(255,255,255,0.1); --c: rgba(0,0,0,0.9); }
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+        body { background:#000; color:#fff; font-family:sans-serif; overflow-x:hidden; scroll-behavior: smooth; }
+        .bg { position:fixed; inset:0; z-index:-2; list-style:none; }
+        .bg li { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; animation: f 30s infinite; }
+        .bg li:nth-child(1){background-image:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1080');}
+        .bg li:nth-child(2){background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1080'); animation-delay:10s;}
+        .bg li:nth-child(3){background-image:url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1080'); animation-delay:20s;}
+        @keyframes f { 0%,33% {opacity:1;} 38%,100% {opacity:0;} }
+        #lo { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.85); backdrop-filter:blur(40px); display:flex; justify-content:center; align-items:center; transition:0.8s; }
+        .lb { width:90%; max-width:400px; padding:35px; background:var(--g); border-radius:30px; border:1px solid rgba(255,255,255,0.15); text-align:center; }
+        #captcha-box { display:none; width:300px; background:#222; padding:20px; border-radius:20px; border:1px solid var(--p); }
+        .c-img { width:100%; height:140px; background:url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300') center; position:relative; border-radius:10px; }
+        .c-slot { position:absolute; left:200px; top:45px; width:50px; height:50px; background:rgba(0,0,0,0.6); border:2px solid #fff; }
+        .c-block { position:absolute; left:0; top:45px; width:50px; height:50px; background:inherit; border:2px solid var(--p); box-shadow:0 0 15px var(--p); cursor:pointer; z-index:10; }
+        #ms { display:none; opacity:0; transition:1s; padding:140px 15px 30px; }
+        header { position:fixed; top:0; left:0; width:100%; height:70px; background:rgba(0,0,0,0.85); backdrop-filter:blur(20px); z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 20px; border-bottom:1px solid var(--p); }
+        .welcome-text { background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); padding:12px; text-align:center; font-size:0.8rem; color:var(--p); border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:15px; border-radius:10px; }
+        .nav-bar { position:fixed; top:70px; left:0; width:100%; height:55px; background:rgba(0,0,0,0.6); backdrop-filter:blur(20px); z-index:90; display:flex; align-items:center; overflow-x:auto; padding:0 15px; border-bottom:1px solid rgba(255,255,255,0.1); scrollbar-width:none; }
+        .nav-item { white-space:nowrap; padding:7px 15px; margin-right:8px; background:rgba(255,255,255,0.08); border-radius:20px; font-size:0.75rem; color:#fff; text-decoration:none; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(155px, 1fr)); gap:10px; }
+        .card { background:var(--c); border-radius:15px; padding:12px; border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(15px); }
+        .card h3 { font-size:0.85rem; color:var(--p); margin-bottom:8px; display:flex; align-items:center; gap:5px; }
+        .list li { padding:7px; background:rgba(255,255,255,0.04); margin-bottom:4px; border-radius:8px; font-size:0.7rem; text-align:center; list-style:none; cursor:pointer; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .btn { width:100%; padding:15px; border-radius:15px; border:none; cursor:pointer; font-weight:bold; }
+        .gb { background:rgba(255,255,255,0.05); border:1px solid var(--p); color:var(--p); }
+        .submit-zone { grid-column:1/-1; background:rgba(0,0,0,0.7); border:1px dashed var(--p); border-radius:20px; padding:20px; margin-top:10px; }
+    </style>
+</head>
+<body>
+    <audio id="bgm" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
+    <ul class="bg"><li></li><li></li><li></li></ul>
+    <div id="lo"><div class="lb" id="login-form"><h1 style="color:var(--p);margin-bottom:30px;">GUEST ACCESS</h1><button class="btn gb" onclick="startCaptcha()">游客模式登录</button></div>
+    <div id="captcha-box"><p style="text-align:center;margin-bottom:15px;">拖动滑块验证</p><div class="c-img"><div class="c-slot"></div><div class="c-block" id="cBlock" onmousedown="dS(event)" ontouchstart="dS(event)"></div></div></div></div>
+    <div id="ms"><header><h3>帝国门户 v26.0</h3><i class="fas fa-fingerprint"></i></header>
+    <nav class="nav-bar"><a href="#dev" class="nav-item">程序员</a><a href="#wlzy" class="nav-item">未来资源</a><a href="#jsykx" class="nav-item">合法免费资源导航</a><a href="#ai" class="nav-item">AI矩阵</a><a href="#video" class="nav-item">影音帝国</a><a href="#game" class="nav-item">游戏</a></nav>
+    <div class="welcome-text">欢迎使用本网站，希望各位游览本网站的大哥哥大姐姐的喜欢 (՞⸝⸝o̴̶̷̥᷅ ̫ o̴̶̷̥᷅⸝⸝՞)</div>
+    <div class="grid">
+        <div class="card" id="dev"><h3><i class="fas fa-code"></i> 程序员专区</h3><ul class="list"><li onclick="window.open('https://github.com')">GitHub</li><li onclick="window.open('https://gitee.com')">Gitee</li><li onclick="window.open('https://mirrors.tuna.tsinghua.edu.cn')">清华源</li><li onclick="window.open('https://mirrors.ustc.edu.cn')">中科大源</li><li onclick="window.open('https://mirrors.aliyun.com')">阿里源</li></ul></div>
+        <div class="card" id="wlzy"><h3><i class="fas fa-database"></i> WLZY 资源库</h3><ul class="list"><li onclick="window.open('https://www.wlzy.top')">WLZY 首页</li><li onclick="window.open('https://www.wlzy.top/category/software')">精品软件</li><li onclick="window.open('https://www.wlzy.top/category/resource')">黑科技</li><li onclick="window.open('https://www.wlzy.top/category/study')">技术学习</li></ul></div>
+        <div class="card" id="jsykx"><h3><i class="fas fa-compass"></i> JSYKX 导航</h3><ul class="list"><li onclick="window.open('https://daohang.jsykx.dpdns.org/daohang.html')">导航首页</li><li onclick="window.open('https://daohang.jsykx.dpdns.org/academic.html')">学术研究</li><li onclick="window.open('https://daohang.jsykx.dpdns.org/tools.html')">全能工具</li><li onclick="window.open('https://daohang.jsykx.dpdns.org/design.html')">设计导航</li></ul></div>
+        <div class="card" id="ai"><h3><i class="fas fa-robot"></i> AI 智能矩阵</h3><ul class="list"><li onclick="window.open('https://yiyan.baidu.com')">文心一言</li><li onclick="window.open('https://tongyi.aliyun.com')">通义千问</li><li onclick="window.open('https://kimi.moonshot.cn')">Kimi 助手</li><li onclick="window.open('https://chat.zhipuai.cn')">智谱清言</li></ul></div>
+        <div class="card" id="video"><h3><i class="fas fa-play"></i> 影音帝国</h3><ul class="list"><li onclick="window.open('https://www.cupfox.app')">茶杯狐影视</li><li onclick="window.open('https://www.agefans.vip')">AGE 动漫</li><li onclick="window.open('https://libvio.me')">LIBVIO 高清</li><li onclick="window.open('https://www.btnull.org')">无名小站</li></ul></div>
+        <div class="card" id="shop"><h3><i class="fas fa-shopping-cart"></i> 购物帝国</h3><ul class="list"><li onclick="window.open('https://www.taobao.com')">淘宝</li><li onclick="window.open('https://www.jd.com')">京东</li><li onclick="window.open('https://www.pinduoduo.com')">拼多多</li><li onclick="window.open('https://www.vip.com')">唯品会</li></ul></div>
+        <div class="card" id="game"><h3><i class="fas fa-gamepad"></i> 免费游戏</h3><ul class="list"><li onclick="window.open('https://poki.com')">Poki</li><li onclick="window.open('https://www.4399.com')">4399</li><li onclick="window.open('https://www.crazygames.com')">CrazyGames</li><li onclick="window.open('https://www.yikm.net')">小霸王</li></ul></div>
+        <div class="card"><h3><i class="fas fa-toolbox"></i> 综合工具</h3><ul class="list"><li onclick="window.open('https://tinypng.com')">图片压缩</li><li onclick="window.open('https://pan.baidu.com')">百度网盘</li><li onclick="window.open('https://www.bilibili.com')">Bilibili</li><li onclick="window.open('https://baike.baidu.com')">百度百科</li></ul></div>
+        <div class="submit-zone" id="tg"><h3>作者投稿</h3><form action="mailto:3039196784@qq.com" method="post" enctype="text/plain"><input type="text" name="name" placeholder="您的称呼" style="width:100%;padding:10px;margin:10px 0;background:rgba(255,255,255,0.05);border:1px solid var(--p);color:#fff;"><textarea name="msg" placeholder="作品描述或链接" style="width:100%;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--p);color:#fff;"></textarea><button type="submit" class="btn gb" style="margin-top:10px;">发送至：3039196784@qq.com</button></form></div>
+    </div></div>
+    <script>
+        function startCaptcha(){document.getElementById('login-form').style.display='none';document.getElementById('captcha-box').style.display='block';}
+        let isD=false;const b=document.getElementById('cBlock');
+        function dS(e){isD=true;}
+        function dM(e){if(!isD)return;let x=(e.touches?e.touches[0].pageX:e.pageX)-100;if(x<0)x=0;if(x>250)x=250;b.style.left=x+'px';if(x>195&&x<215){isD=false;unlock();}}
+        function unlock(){document.getElementById('bgm').play().catch(()=>{});document.getElementById('lo').style.opacity='0';setTimeout(()=>{document.getElementById('lo').style.display='none';document.getElementById('ms').style.display='block';setTimeout(()=>document.getElementById('ms').style.opacity='1',50);},600);}
+        document.addEventListener('mousemove',dM);document.addEventListener('touchmove',dM);document.addEventListener('mouseup',()=>{isD=false;});document.addEventListener('touchend',()=>{isD=false;});
+    </script>
+</body>
+</html>
