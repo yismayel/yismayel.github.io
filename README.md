@@ -1,4 +1,5 @@
-#网站地址：yismayel.github.io
+#网站地址：yismayel.github.io    
+#请使用手机官方浏览器
 # 资源汇集（Next.js + Supabase）
 
 准备工作：
